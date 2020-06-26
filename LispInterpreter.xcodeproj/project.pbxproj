@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		10F2B68624A6696C0044F555 /* LispInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F2B68524A6696C0044F555 /* LispInterpreter.swift */; };
+		10FFF6F224A672D300B9E1CC /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FFF6F124A672D300B9E1CC /* Parser.swift */; };
+		10FFF6F424A67D4B00B9E1CC /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FFF6F324A67D4B00B9E1CC /* Types.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		10F2B68224A6696C0044F555 /* libLispInterpreter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLispInterpreter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		10F2B68524A6696C0044F555 /* LispInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LispInterpreter.swift; sourceTree = "<group>"; };
+		10FFF6F124A672D300B9E1CC /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		10FFF6F324A67D4B00B9E1CC /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				10F2B68524A6696C0044F555 /* LispInterpreter.swift */,
+				10FFF6F124A672D300B9E1CC /* Parser.swift */,
+				10FFF6F324A67D4B00B9E1CC /* Types.swift */,
 			);
 			path = LispInterpreter;
 			sourceTree = "<group>";
@@ -120,6 +126,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10FFF6F424A67D4B00B9E1CC /* Types.swift in Sources */,
+				10FFF6F224A672D300B9E1CC /* Parser.swift in Sources */,
 				10F2B68624A6696C0044F555 /* LispInterpreter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
