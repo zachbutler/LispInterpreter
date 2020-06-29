@@ -10,36 +10,36 @@ import Foundation
 
 public let keywordMagic: Character = "\u{029E}"
 
-public enum Expr {
+public enum SExpr {
     case number(Int)
     case bool(Bool)
     case null
     case string(String)
     case symbol(String)
     // indirect allows for a sort of recursive typing
-    indirect case list([Expr], Expr)
-    indirect case vector([Expr], Expr)
-    indirect case hashmap([String: Expr], Expr)
+    indirect case list([SExpr], SExpr)
+    indirect case vector([SExpr], SExpr)
+    indirect case hashmap([String: SExpr], SExpr)
     case function(Func)
     case atom(Atom)
 }
 
-public extension Expr {
-    static func list(_ lst: [Expr]) -> Expr {
+public extension SExpr {
+    static func list(_ lst: [SExpr]) -> SExpr {
         return .list(lst, .null)
     }
     
-    static func vector(_ lst: [Expr]) -> Expr {
+    static func vector(_ lst: [SExpr]) -> SExpr {
         return .vector(lst, .null)
     }
     
-    static func hashmap(_ data: [String: Expr]) -> Expr {
+    static func hashmap(_ data: [String: SExpr]) -> SExpr {
         return .hashmap(data, .null)
     }
 }
 
-extension Expr: Equatable {
-    // Switch statement defining equality for expressions.
+extension SExpr: Equatable {
+    // Switch statement defining equality for SExpressions.
     public static func == (left: Self, right: Self) -> Bool {
         switch (left, right) {
         case let (.number(a), .number(b)):
@@ -77,15 +77,15 @@ final public class Func {
 }
 
 final public class Atom {
-    public var val: Expr
-    public let meta: Expr
+    public var val: SExpr
+    public let meta: SExpr
     
-    public init (_ val: Expr, meta: Expr = .null) {
+    public init (_ val: SExpr, meta: SExpr = .null) {
         self.val = val
         self.meta = meta
     }
     
-    public func withMeta(_ meta: Expr) -> Atom {
+    public func withMeta(_ meta: SExpr) -> Atom {
         return Atom(val, meta: meta)
     }
 }
