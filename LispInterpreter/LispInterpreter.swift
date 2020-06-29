@@ -6,6 +6,20 @@
 //  Copyright © 2020 Zach Butler. All rights reserved.
 //
 
-class LispInterpreter {
+import Foundation
 
+func READ(_ s: String) -> String {
+    return s
+}
+
+func EVAL(_ s: String) -> String {
+    return s
+}
+
+func PRINT(_ s: String) -> String {
+    return s
+}
+
+func rep(_ s: String) -> String {
+    
 }
