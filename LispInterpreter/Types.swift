@@ -76,4 +76,22 @@ final public class Func {
     
 }
 
+final public class Atom {
+    public var val: Expr
+    public let meta: Expr
+    
+    public init (_ val: Expr, meta: Expr = .null) {
+        self.val = val
+        self.meta = meta
+    }
+    
+    public func withMeta(_ meta: Expr) -> Atom {
+        return Atom(val, meta: meta)
+    }
+}
 
+extension Atom: Equatable {
+    public static func == (left: Atom, right: Atom) -> Bool {
+        return left.val == right.val
+    }
+}
