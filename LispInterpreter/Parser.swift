@@ -21,6 +21,7 @@ extension Parser {
 
 struct Parsers {}
 
+// pattern matching on a string or character
 extension Parsers {
     static func string(_ p: String) -> Parser<Void> {
         Parser { str in
@@ -28,8 +29,40 @@ extension Parsers {
         }
     }
     
-
+    static let char = Parser<Character> { str in
+        str.isEmpty ? nil : (str.first!, str.dropFirst())
+    }
+    
+    static func char(excluding string: String) -> Parser<Character> {
+        char.filter { !string.contains($0) }
+    }
+    
+    static func char(from string: String) -> Parser<Character> {
+        char.filter(string.contains)
+    }
+    
+    static func string(excluding string: String) -> Parser<String> {
+        char(excluding: string).oneOrMore.map { String($0) }
+    }
+    
+    static let digit = char(from: "0123456789")
+    static let naturalNumber = digit.oneOrMore.map { Int(String($0)) }
 }
+
+extension Parser: ExpressibleByStringLiteral, ExpressibleByUnicodeScalarLiteral, ExpressibleByExtendedGraphemeClusterLiteral where A == Void {
+    
+    typealias ExtendedGraphemeClusterLiteralType = StringLiteralType
+    typealias UnicodeScalarLiteralType = StringLiteralType
+    typealias StringLiteralType = String
+    
+    init(stringLiteral value: String) {
+        self = Parsers.string(value)
+    }
+}
+
+// Get Functional
+
+func zip<A, B>()
 
 
 
