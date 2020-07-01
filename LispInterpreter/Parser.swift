@@ -62,7 +62,45 @@ extension Parser: ExpressibleByStringLiteral, ExpressibleByUnicodeScalarLiteral,
 
 // Get Functional
 
-func zip<A, B>()
+func zip<A, B>(_ a: Parser<A>, _ b: Parser<B>) -> Parser<(A, B)> {
+    a.flatMap { matchA in b.map { matchB in (matchA, matchB) } }
+}
+
+func oneOf<A>(_ parsers: Parser<A>...) -> Parser<A> {
+    precondition(!parsers.isEmpty)
+    return Parser<A> { str -> (A, Substring)? in
+        for parser in parsers {
+            // FIXME: - check out where syntax here
+            if let match  = try parser.parse(str) {
+                return match
+            }
+        }
+        return nil
+    }
+}
+
+extension Parser {
+    func map<B>(_ transform: @escaping (A) throws -> B?) -> Parser<B> {
+        flatMap { match in
+            Parser<B> { str in
+                (try transform(match)).map { ($0, str) }
+            }
+        }
+    }
+    
+    func flatMap<B>(_ transform: @escaping (A) throws -> Parser<B>) -> Parser<B> {
+        Parser<B> {str in
+            guard let (a, str) = try self.parse(str) else { return nil }
+            return try transfrom(a).parse(str)
+        }
+    }
+    
+    func filter(_ predicate: @escaping (A) -> Bool) -> Parser<A> {
+        map { predicate($0) ? $0 : nil }
+    }
+}
+
+
 
 
 
