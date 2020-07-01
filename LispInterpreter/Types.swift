@@ -73,7 +73,42 @@ extension SExpr: Equatable {
 
 // Define a function
 final public class Func {
+    public let run: ([SExpr]) throws -> SExpr
+    public let ast: SExpr?
+    public let params: [String]
+    public let env: Env?
+    public let isMacro: Bool
+    public let meta: SExpr
     
+    public init (
+        ast: SExpr? = nil,
+        params: [String] = [],
+        env: Env? = nil,
+        isMacro: Bool = false,
+        meta: SExpr = .null,
+        run: @escaping ([SExpr]) throws -> SExpr
+    ) {
+        self.run = run
+        self.ast = ast
+        self.params = params
+        self.env = env
+        self.isMacro = isMacro
+        self.meta = meta
+    }
+    
+    public func asMacros() -> Func {
+        return Func(ast: ast, params: params, env: env, isMacro: true, meta: meta, run: run)
+    }
+    
+    public func withMeta(_ meta: SExpr) -> Func {
+        return Func(ast: ast, params: params, env: env, isMacro: true, meta: meta, run: run)
+    }
+}
+
+extension Func: Equatable {
+    public static func == (left: Func, right: Func) -> Bool {
+        return left == right 
+    }
 }
 
 final public class Atom {
